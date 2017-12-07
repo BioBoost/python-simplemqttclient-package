@@ -26,7 +26,10 @@ class SimpleMqttClient(object):
     def stop(self):
         self.client.loop_stop(force=False)
 
-    def subscribe(self, topic, callback=None, save=True):
+    def subscribe(self, topic, callback=None):
         if callback != None:
             self.client.message_callback_add(topic, callback)
         self.client.subscribe(topic)
+
+    def publish(self, topic, payload, qos=0, retain=False):
+        self.client.publish(topic, payload, qos, retain)
